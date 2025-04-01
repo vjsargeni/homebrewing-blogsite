@@ -1,32 +1,33 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload, Where } from 'payload'
+import { Where } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
-
-import config from '@/payload.config'
 import Container from 'react-bootstrap/Container'
 import { GetBrewsFromPayloadByCondition } from '@/services/api'
-import Link from 'next/link'
+import PageSection from '../pageSection/PageSection'
+import { BREWING_STATUS } from '@/consts/string'
 
 const HomePage = async function () {
-  // const headers = await getHeaders()
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
-  // const { user } = await payload.auth({ headers })
-
-  // const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
   const query: Where = { brewingStatus: { not_equals: 'past' } }
 
   const data = await GetBrewsFromPayloadByCondition(query, 10)
 
+  //fermenting / conditioning brews
+  const upcomingBrews = data.filter((brew) => {
+    return (
+      brew.brewingStatus === BREWING_STATUS.CONDITIONING ||
+      brew.brewingStatus === BREWING_STATUS.UPCOMING
+    )
+  })
+
+  const currentBrews = data.filter((brew) => {
+    return (
+      brew.brewingStatus === BREWING_STATUS.BOTTLED || brew.brewingStatus === BREWING_STATUS.DRAFT
+    )
+  })
+
   return (
     <Container>
-      {data.map((item) => (
-        <Link key={`${item.id}_${item.brewName}`} href={`/brews/${item.id}`}>
-          {item.brewName}
-        </Link>
-      ))}
+      <PageSection sectionTitle="Current" sectionItems={currentBrews}></PageSection>
+      <PageSection sectionTitle="Upcoming" sectionItems={upcomingBrews}></PageSection>
     </Container>
   )
 }

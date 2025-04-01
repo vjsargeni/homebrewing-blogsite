@@ -1,7 +1,7 @@
 import React from 'react'
-import './styles.css'
 import Header from '@/components/header/Header'
 import MainNav from '@/components/nav/MainNav'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -15,7 +15,12 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body>
         <Header />
-        <MainNav navItems={['Current', 'Past']} />
+        <MainNav
+          navItems={[
+            { href: '/', page: 'Home' },
+            { href: '/past', page: 'Past Brews' },
+          ]}
+        />
         <main>{children}</main>
       </body>
     </html>

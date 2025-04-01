@@ -1,10 +1,9 @@
-import { getPayload, PaginatedDocs, Where } from 'payload'
+import { getPayload, Where } from 'payload'
 import config from '@payload-config'
 import { Brew } from '@/payload-types'
 import { BeveragePageData, BrewFatherRecipe, BrewItem } from './types'
 import { transformBrewsToBrewItems, transformSingleBrewToBrewItem } from './transform'
 import axios from 'axios'
-import BeveragePage from '@/components/pages/BeveragePage'
 
 const payload = await getPayload({ config })
 export const brewfatherIncludeItems = [
@@ -101,4 +100,38 @@ const GetRecipeFromBrewfather = async function (id: string): Promise<BrewFatherR
   }
 }
 
-export { GetAllBrewsFromPayload, GetBeveragePage, GetBrewsFromPayloadByCondition }
+const UpdatePayloadBrewItemById = async function (
+  updateData: object,
+  id: string,
+): Promise<Brew | undefined> {
+  const result = await payload.update({
+    collection: 'brew', // required
+    id: id, // required
+    data: updateData, //required
+    depth: 2,
+    // If your collection supports uploads, you can upload
+    // a file directly through the Local API by providing
+    // its full, absolute file path.
+    //filePath: path.resolve(__dirname, './path-to-image.jpg'),
+
+    // If you are uploading a file and would like to replace
+    // the existing file instead of generating a new filename,
+    // you can set the following property to `true`
+    overwriteExistingFiles: true,
+  })
+
+  if (result) {
+    return result
+  } else {
+    console.log(`[UpdatePayloadBrewItemById] failed to update BrewItem at id:${id}`)
+    return undefined
+  }
+}
+
+export {
+  GetAllBrewsFromPayload,
+  GetBeveragePage,
+  GetRecipeFromBrewfather,
+  GetBrewsFromPayloadByCondition,
+  UpdatePayloadBrewItemById,
+}

@@ -22,6 +22,7 @@ export default buildConfig({
     },
   },
   collections: [BeverageItem, Media, Users],
+  //hooks:{},
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

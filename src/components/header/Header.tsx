@@ -2,10 +2,16 @@
 //   brew: string
 // }
 
+import { Container } from 'react-bootstrap'
+
 const Header = function () {
   //const { brew } = props
 
-  return <h1> Welcome to the WIP bincoBrew site</h1>
+  return (
+    <Container fluid>
+      <h1 className="text-center"> Welcome to the WIP bincoBrew site</h1>
+    </Container>
+  )
 }
 
 export default Header

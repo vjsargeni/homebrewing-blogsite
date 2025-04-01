@@ -13,7 +13,7 @@ const transformSingleBrewToBrewItem = function (payloadbrew: Brew): BrewItem {
     id: payloadbrew.id,
     brewFatherId: payloadbrew.brewfatherId ?? undefined,
     brewDescription: payloadbrew.brewDescription ?? '',
-    brewingStatus: payloadbrew.brewingStatus,
+    brewingStatus: payloadbrew.brewingStatus ?? '',
     brewName: payloadbrew.brewName,
     brewStyle: payloadbrew.brewStyle,
     brewPhoto: payloadbrew.brewPhoto ?? undefined,

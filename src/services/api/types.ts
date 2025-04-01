@@ -1,3 +1,4 @@
+import { BrewStatus } from '@/consts/string'
 import { Media } from '@/payload-types'
 
 export type BrewItem = {
@@ -6,8 +7,9 @@ export type BrewItem = {
   brewStyle: string
   brewPhoto?: Media | string //media obj?
   brewDescription: string //RTE obj
-  brewingStatus: string
+  brewingStatus: BrewStatus
   brewFatherId?: string
+  recipe?: BrewFatherRecipe
 }
 
 export type BeveragePageData = {
@@ -67,38 +69,38 @@ export interface Style {
 }
 
 export interface Fermentable {
-  friability: any
-  costPerAmount: any
+  friability: string
+  costPerAmount: string
   potentialPercentage: number
-  fan: any
-  inventory: any
-  acid: any
+  fan: string
+  inventory: string
+  acid: string
   percentage: number
   notes: string
-  manufacturingDate: any
-  fgdb: any
+  manufacturingDate: string
+  fgdb: string
   type: string
   substitutes: string
   notFermentable: boolean
-  maxInBatch: any
+  maxInBatch: string
   attenuation?: number
   potential: number
   supplier: string
-  cgdb: any
+  cgdb: string
   name: string
   color: number
-  moisture: any
-  ibuPerAmount: any
+  moisture: string
+  ibuPerAmount: string
   amount: number
   userNotes: string
-  bestBeforeDate: any
-  protein: any
+  bestBeforeDate: string
+  protein: string
   origin: string
   usedIn: string
   grainCategory: string
   _id: string
-  diastaticPower: any
-  coarseFineDiff: any
+  diastaticPower: string
+  coarseFineDiff: string
 }
 
 export interface Hop {
@@ -112,23 +114,23 @@ export interface Hop {
   substitutes: string
   usedIn: string
   userNotes: string
-  myrcene: any
-  humulene: any
-  caryophyllene: any
-  farnesene: any
-  oil: any
-  beta: any
-  cohumulone: any
-  hsi: any
-  year: any
-  manufacturingDate: any
-  bestBeforeDate: any
+  myrcene: string
+  humulene: string
+  caryophyllene: string
+  farnesene: string
+  oil: string
+  beta: string
+  cohumulone: string
+  hsi: string
+  year: string
+  manufacturingDate: string
+  bestBeforeDate: string
   amount: number
   use: string
   time: number
-  temp: any
+  temp: string
   ibu: number
-  actualTime: any
+  actualTime: string
 }
 
 export interface Yeast {
@@ -150,8 +152,8 @@ export interface Yeast {
   productId: string
   name: string
   userNotes: string
-  manufacturingDate: any
-  bestBeforeDate: any
+  manufacturingDate: string
+  bestBeforeDate: string
   amount: number
 }
 
