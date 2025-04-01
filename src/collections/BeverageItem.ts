@@ -12,6 +12,10 @@ export const BeverageItem: CollectionConfig = {
       required: true,
     },
     {
+      name: 'brewfatherId',
+      type: 'text',
+    },
+    {
       name: 'brewStyle',
       type: 'text',
       required: true,
@@ -23,7 +27,7 @@ export const BeverageItem: CollectionConfig = {
     },
     {
       name: 'brewDescription',
-      type: 'richText',
+      type: 'text',
     },
     {
       name: 'brewingStatus',
