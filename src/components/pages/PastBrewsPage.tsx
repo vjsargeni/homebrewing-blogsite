@@ -23,7 +23,6 @@ const PastBrewsPage: FC<PastBrewsPageProps> = async (props) => {
 
   return (
     <Container>
-      <h1>Past Brews Page</h1>
       <PageSection sectionTitle={'Past Brews'} sectionItems={data}></PageSection>
     </Container>
   )

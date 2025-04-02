@@ -26,8 +26,11 @@ const HomePage = async function () {
 
   return (
     <Container>
-      <PageSection sectionTitle="Current" sectionItems={currentBrews}></PageSection>
-      <PageSection sectionTitle="Upcoming" sectionItems={upcomingBrews}></PageSection>
+      <PageSection
+        sectionTitle="Currently on Draft / In Bottles"
+        sectionItems={currentBrews}
+      ></PageSection>
+      <PageSection sectionTitle="Upcoming Brews" sectionItems={upcomingBrews}></PageSection>
     </Container>
   )
 }

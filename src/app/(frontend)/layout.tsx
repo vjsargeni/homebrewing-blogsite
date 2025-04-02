@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '@/components/header/Header'
 import MainNav from '@/components/nav/MainNav'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -13,8 +12,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body>
-        <Header />
+      <body className="bg-black">
         <MainNav
           navItems={[
             { href: '/', page: 'Home' },

@@ -12,8 +12,8 @@ const PageSection: FC<PageSectionProps> = (props) => {
   const { sectionTitle, sectionItems, ...remainingContainerProps } = props
 
   return (
-    <Container fluid {...remainingContainerProps}>
-      <h3>{sectionTitle}</h3>
+    <Container fluid className="p-2" {...remainingContainerProps}>
+      <h2 className="text-light">{sectionTitle}</h2>
       <Row>
         {sectionItems.map((item) => {
           return (

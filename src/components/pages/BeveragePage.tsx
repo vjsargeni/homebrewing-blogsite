@@ -21,7 +21,7 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
   return (
     <Container fluid className="text-center" {...remainingContainerProps}>
       <h3>You&apos;re on the {pageData.brew.brewName} page</h3>
-      <h3> Recipe id {recipe?._id}</h3>
+      <p className="text-light"> {JSON.stringify(recipe)}</p>
     </Container>
   )
 }
