@@ -11,7 +11,8 @@ const transformBrewsToBrewItems = function (payloadbrew: PaginatedDocs<Brew>): B
 const transformSingleBrewToBrewItem = function (payloadbrew: Brew): BrewItem {
   return {
     id: payloadbrew.id,
-    brewFatherId: payloadbrew.brewfatherId ?? undefined,
+    brewFatherRecipeId: payloadbrew.brewFatherRecipeId ?? undefined,
+    brewFatherBatchId: payloadbrew.brewFatherBatchId ?? undefined,
     brewDescription: payloadbrew.brewDescription ?? '',
     brewingStatus: payloadbrew.brewingStatus ?? '',
     brewName: payloadbrew.brewName,

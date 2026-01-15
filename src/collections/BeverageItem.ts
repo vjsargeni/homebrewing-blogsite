@@ -1,9 +1,13 @@
+import { syncProductToBrewfatherAPI } from '@/customFields/brewFatherFieldHook'
 import type { CollectionConfig } from 'payload'
 
 export const BeverageItem: CollectionConfig = {
   slug: 'brew',
   access: {
     read: () => true,
+  },
+  hooks: {
+    beforeChange: [syncProductToBrewfatherAPI],
   },
   fields: [
     {
@@ -12,7 +16,11 @@ export const BeverageItem: CollectionConfig = {
       required: true,
     },
     {
-      name: 'brewfatherId',
+      name: 'brewFatherRecipeId',
+      type: 'text',
+    },
+    {
+      name: 'brewFatherBatchId',
       type: 'text',
     },
     {
@@ -40,6 +48,18 @@ export const BeverageItem: CollectionConfig = {
         { label: 'Conditioning', value: 'conditioning' },
         { label: 'Past', value: 'past' },
       ],
+    },
+    {
+      admin: { readOnly: true },
+      label: 'Recipe JSON',
+      name: 'recipe',
+      type: 'json',
+    },
+    {
+      admin: { readOnly: true },
+      label: 'Batch JSON',
+      name: 'batchData',
+      type: 'json',
     },
   ],
 }

@@ -1,25 +1,13 @@
 import { getPayload, Where } from 'payload'
 import config from '@payload-config'
 import { Brew } from '@/payload-types'
-import { BeveragePageData, BrewFatherRecipe, BrewItem } from './types'
+import { BeveragePageData, BrewItem } from './types'
 import { transformBrewsToBrewItems, transformSingleBrewToBrewItem } from './transform'
 import axios from 'axios'
+import { BrewFatherRecipe } from '../brewFather'
+import { brewfatherIncludeItems, GetBatchFromBrewfather } from '../brewFather/utilities'
 
-const payload = await getPayload({ config })
-export const brewfatherIncludeItems = [
-  'fermentables',
-  'style',
-  'abv',
-  'hops',
-  'ibu',
-  'og',
-  'fg',
-  'yeasts',
-  'color',
-  'ibuFormula',
-  'author',
-  'nutrition',
-]
+const payload = await getPayload({  config })
 
 const GetAllBrewsFromPayload = async function (): Promise<BrewItem[]> {
   const result = await payload.find({
@@ -57,9 +45,6 @@ const GetBeveragePage = async function (brewId: string): Promise<BeveragePageDat
   if (brewItem) {
     return {
       brew: brewItem,
-      recipe: brewItem.brewFatherId
-        ? await GetRecipeFromBrewfather(brewItem.brewFatherId)
-        : undefined,
     }
   } else {
     return undefined
@@ -80,24 +65,6 @@ const GetBrewsFromPayloadByCondition = async function (
   })
 
   return transformBrewsToBrewItems(result)
-}
-
-const GetRecipeFromBrewfather = async function (id: string): Promise<BrewFatherRecipe | undefined> {
-  const headers = {
-    Authorization: `Basic ${process.env.BF_API_KEY ?? ''}`,
-  }
-
-  try {
-    const result = await axios({
-      method: 'get',
-      url: `https://api.brewfather.app/v2/recipes/${id}?include=${brewfatherIncludeItems.join(',')}`,
-      headers: headers,
-    })
-
-    return result.data as BrewFatherRecipe
-  } catch {
-    return undefined
-  }
 }
 
 const UpdatePayloadBrewItemById = async function (
@@ -131,7 +98,6 @@ const UpdatePayloadBrewItemById = async function (
 export {
   GetAllBrewsFromPayload,
   GetBeveragePage,
-  GetRecipeFromBrewfather,
   GetBrewsFromPayloadByCondition,
   UpdatePayloadBrewItemById,
 }

@@ -16,7 +16,7 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
     return notFound()
   }
 
-  const recipe = pageData.recipe
+  const recipe = pageData.brew.recipe
 
   return (
     <Container fluid className="text-center" {...remainingContainerProps}>

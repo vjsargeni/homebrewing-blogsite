@@ -14,6 +14,7 @@ import { BeverageItem } from './collections/BeverageItem'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -22,7 +23,7 @@ export default buildConfig({
     },
   },
   collections: [BeverageItem, Media, Users],
-  //hooks:{},
+
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -37,3 +38,5 @@ export default buildConfig({
     // storage-adapter-placeholder
   ],
 })
+
+

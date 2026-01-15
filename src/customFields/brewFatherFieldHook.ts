@@ -1,33 +1,24 @@
-//not currently in use, leaving for later
-// import { GetBrewsFromPayloadByCondition, GetRecipeFromBrewfather } from '@/services/api/utilities'
-// import type { Field, Where } from 'payload'
+import { BrewItem } from '@/services/api'
+import { BrewfatherService } from '@/services/brewFather'
+import { CollectionBeforeChangeHook } from 'payload'
 
-// const BrewfatherIdField: Field = {
-//   name: 'brewfatherId',
-//   type: 'text',
-//   hooks: {
-//     afterChange: [
-//       async ({ value, previousValue, req }) => {
-//         if (value !== previousValue) {
-//           //pull data from Brewfather
-//           const recipeData = await GetRecipeFromBrewfather(value)
+    /**
+     * Returns recipe and/or batch data OR undefined to CMS fields before a save
+     * Result: data is saved to DB
+     */
+export const syncProductToBrewfatherAPI: CollectionBeforeChangeHook<BrewItem> = async ({
+  data,
+}) => {
+  try {
 
-//           if (recipeData) {
-//             //find brewItem
-//             const query: Where = { brewfatherId: { equals: value } }
-//             const brewItemDoc = await GetBrewsFromPayloadByCondition(query, 1)
-//             if (brewItemDoc.length) {
-//               const brewItemId = brewItemDoc[0].id
-//             }
+    const recipeResponse = data.brewFatherRecipeId ?  await BrewfatherService.GetRecipeFromBrewfather(data.brewFatherRecipeId): undefined;    
+    const batchResponse = data.brewFatherBatchId ? await BrewfatherService.GetBatchFromBrewfather(data.brewFatherBatchId): undefined;
 
-//             //brewItemDoc
-//           }
+    data.recipe = recipeResponse
+    data.batchData = batchResponse
+  } catch (error) {
+    console.error('Error during external API call:', error)
+  }
 
-//           //update with JSON
-//         }
-//       },
-//     ],
-//   },
-// }
-
-// export default BrewfatherIdField
+  return data
+}
