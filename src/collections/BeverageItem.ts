@@ -1,3 +1,4 @@
+import { addDefaultImageToBrewItem } from '@/customFields/addDefaultImageHook'
 import { syncProductToBrewfatherAPI } from '@/customFields/brewFatherFieldHook'
 import type { CollectionConfig } from 'payload'
 
@@ -7,7 +8,7 @@ export const BeverageItem: CollectionConfig = {
     read: () => true,
   },
   hooks: {
-    beforeChange: [syncProductToBrewfatherAPI],
+    beforeChange: [syncProductToBrewfatherAPI, addDefaultImageToBrewItem],
   },
   fields: [
     {
@@ -34,6 +35,11 @@ export const BeverageItem: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'medal',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'brewDescription',
       type: 'text',
     },
@@ -50,16 +56,28 @@ export const BeverageItem: CollectionConfig = {
       ],
     },
     {
-      admin: { readOnly: true },
       label: 'Recipe JSON',
-      name: 'recipe',
-      type: 'json',
+      type: 'collapsible',
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          admin: { readOnly: true },
+          name: 'recipe',
+          type: 'json',
+        },
+      ],
     },
     {
-      admin: { readOnly: true },
       label: 'Batch JSON',
-      name: 'batchData',
-      type: 'json',
+      type: 'collapsible',
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          admin: { readOnly: true },
+          name: 'batchData',
+          type: 'json',
+        },
+      ],
     },
   ],
 }

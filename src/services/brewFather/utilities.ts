@@ -20,11 +20,9 @@ const headers = {
   Authorization: `Basic ${process.env.BF_API_KEY ?? ''}`,
 }
 
-
 export const GetRecipeFromBrewfather = async function (
   id: string,
 ): Promise<BrewFatherRecipe | undefined> {
-
   try {
     const result = await axios({
       method: 'get',
@@ -33,26 +31,22 @@ export const GetRecipeFromBrewfather = async function (
     })
 
     return result.data as BrewFatherRecipe
-  } catch (ex){
+  } catch (ex) {
     console.error(ex)
     return undefined
   }
 }
 
-export const GetBatchFromBrewfather = async function (
-  id: string,
-): Promise<Batch | undefined> {
-
-// https://api.brewfather.app/v2/batches/:id
+export const GetBatchFromBrewfather = async function (id: string): Promise<Batch | undefined> {
   try {
     const result = await axios({
       method: 'get',
-      url: `https://api.brewfather.app/v2/batches/${id}`, 
+      url: `https://api.brewfather.app/v2/batches/${id}`,
       headers: headers,
     })
 
-    return result.data as Batch;
-  } catch (ex){
+    return result.data as Batch
+  } catch (ex) {
     console.error(ex)
     return undefined
   }

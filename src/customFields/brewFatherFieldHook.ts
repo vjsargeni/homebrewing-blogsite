@@ -3,8 +3,7 @@ import { BrewfatherService } from '@/services/brewFather'
 import { CollectionBeforeChangeHook } from 'payload'
 
     /**
-     * Returns recipe and/or batch data OR undefined to CMS fields before a save
-     * Result: data is saved to DB
+     * Returns recipe and/or batch data OR undefined to CMS fields before a save. Data is then stored in CMS for fetching later
      */
 export const syncProductToBrewfatherAPI: CollectionBeforeChangeHook<BrewItem> = async ({
   data,

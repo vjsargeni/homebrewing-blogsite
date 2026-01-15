@@ -23,6 +23,9 @@ export default buildConfig({
     },
   },
   collections: [BeverageItem, Media, Users],
+  folders:{
+    browseByFolder: true
+  },
 
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

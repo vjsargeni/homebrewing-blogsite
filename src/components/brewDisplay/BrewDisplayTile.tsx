@@ -1,7 +1,6 @@
 import { Media } from '@/payload-types'
 import { BrewItem } from '@/services/api'
 import { FC } from 'react'
-import placeHolderImg from 'media/beerMug.png'
 import {
   Card,
   CardTitle,
@@ -11,6 +10,7 @@ import {
   Container,
   CardHeader,
 } from 'react-bootstrap'
+import { BREWING_STATUS } from '@/consts/string'
 
 interface BrewDisplayProps {
   brew: BrewItem
@@ -19,13 +19,20 @@ interface BrewDisplayProps {
 const BrewDisplayTile: FC<BrewDisplayProps> = async (props) => {
   const { brew } = props
   const linkToBrewPage = `/brews/${brew.id}`
-  const image = (brew.brewPhoto as Media)?.url ?? placeHolderImg.src
+  const image = (brew.brewPhoto as Media).url!
+
   return (
     <Card border="primary" bg="dark" text="light" className="p-2 m-2" style={{ width: '18rem' }}>
       <Container className="mx-auto align-middle">
         <CardHeader>
           <CardTitle>{brew.brewName}</CardTitle>
-          <CardSubtitle>{brew.brewStyle}</CardSubtitle>
+          <CardSubtitle className="py-1">{brew.brewStyle}</CardSubtitle>
+          {brew.brewingStatus === BREWING_STATUS.DRAFT && (
+            <CardSubtitle className="py-1">On Draft</CardSubtitle>
+          )}
+          {brew.brewingStatus === BREWING_STATUS.BOTTLED && (
+            <CardSubtitle className="py-1">Bottled</CardSubtitle>
+          )}
           <CardLink color="light" href={linkToBrewPage}>
             See more
           </CardLink>

@@ -27,7 +27,7 @@ const HomePage = async function () {
   return (
     <Container>
       <PageSection
-        sectionTitle="Currently on Draft / In Bottles"
+        sectionTitle="Currently Available"
         sectionItems={currentBrews}
       ></PageSection>
       <PageSection sectionTitle="Upcoming Brews" sectionItems={upcomingBrews}></PageSection>
