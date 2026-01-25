@@ -1,15 +1,13 @@
 import { getPayload, Where } from 'payload'
 import config from '@payload-config'
-import { Brew } from '@/payload-types'
+import { Beermedia, Brew } from '@/payload-types'
 import { BeveragePageData, BrewItem } from './types'
 import { transformBrewsToBrewItems, transformSingleBrewToBrewItem } from './transform'
-import axios from 'axios'
-import { BrewFatherRecipe } from '../brewFather'
-import { brewfatherIncludeItems, GetBatchFromBrewfather } from '../brewFather/utilities'
 
-const payload = await getPayload({  config })
+const payload = await getPayload({ config })
 
 const GetAllBrewsFromPayload = async function (): Promise<BrewItem[]> {
+  const fallbackImg = await GetPlaceHolderImage() //preload placeholder image
   const result = await payload.find({
     collection: 'brew', // required
     depth: 2,
@@ -20,7 +18,7 @@ const GetAllBrewsFromPayload = async function (): Promise<BrewItem[]> {
     sort: '-age',
   })
 
-  return transformBrewsToBrewItems(result)
+  return transformBrewsToBrewItems(result, fallbackImg)
 }
 
 const GetSingleBrewFromPayload = async function (id: string): Promise<BrewItem | undefined> {
@@ -33,7 +31,8 @@ const GetSingleBrewFromPayload = async function (id: string): Promise<BrewItem |
     .catch(() => undefined)
 
   if (result) {
-    return transformSingleBrewToBrewItem(result)
+    const fallbackImg = await GetPlaceHolderImage() //preload placeholder image
+    return transformSingleBrewToBrewItem(result, fallbackImg)
   } else {
     return undefined
   }
@@ -51,10 +50,39 @@ const GetBeveragePage = async function (brewId: string): Promise<BeveragePageDat
   }
 }
 
+const GetPlaceHolderImage = async function (): Promise<Beermedia> {
+  const mediaFileSearch = await payload.find({
+    collection: 'beermedia',
+    where: {
+      filename: {
+        equals: 'beerMug.png',
+      },
+    },
+    limit: 1,
+  })
+
+  return mediaFileSearch.docs.at(0)!
+}
+
+const GetMainLogo = async function (): Promise<Beermedia> {
+  const mediaFileSearch = await payload.find({
+    collection: 'media',
+    where: {
+      filename: {
+        equals: 'logo-svg.svg',
+      },
+    },
+    limit: 1,
+  })
+
+  return mediaFileSearch.docs.at(0)!
+}
+
 const GetBrewsFromPayloadByCondition = async function (
   query: Where,
   limit: number,
 ): Promise<BrewItem[]> {
+  const fallbackImg = await GetPlaceHolderImage() //preload placeholder image
   const result = await payload.find({
     collection: 'brew', // required
     depth: 2,
@@ -64,7 +92,7 @@ const GetBrewsFromPayloadByCondition = async function (
     sort: '-age',
   })
 
-  return transformBrewsToBrewItems(result)
+  return transformBrewsToBrewItems(result, fallbackImg)
 }
 
 const UpdatePayloadBrewItemById = async function (
@@ -96,8 +124,10 @@ const UpdatePayloadBrewItemById = async function (
 }
 
 export {
+  GetPlaceHolderImage,
   GetAllBrewsFromPayload,
   GetBeveragePage,
+  GetMainLogo,
   GetBrewsFromPayloadByCondition,
   UpdatePayloadBrewItemById,
 }

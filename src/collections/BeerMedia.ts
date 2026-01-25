@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-export const Media: CollectionConfig = {
-  slug: 'media',
+export const BeerMedia: CollectionConfig = {
+  slug: 'beermedia',
   labels: {
-    singular: 'Asset',
-    plural: 'Assets',
+    singular: 'Beer Media',
+    plural: 'Beer Media',
   },
   access: {
     read: () => true,
@@ -13,11 +13,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      required: true,
     },
   ],
   upload: true,
-  // upload: {
-  //   disableLocalStorage: true,
-  // },
 }

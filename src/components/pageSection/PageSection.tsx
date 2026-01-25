@@ -15,6 +15,7 @@ const PageSection: FC<PageSectionProps> = (props) => {
     <Container fluid className="p-2" {...remainingContainerProps}>
       <h2 className="text-light">{sectionTitle}</h2>
       <Row>
+        {sectionItems.length === 0 && <p className="text-light">Nothing at the moment...</p>}
         {sectionItems.map((item) => {
           return (
             <Col xl={3} lg={4} md={6} sm={8} xs={12} key={`${item.id}_col_${sectionTitle}`}>

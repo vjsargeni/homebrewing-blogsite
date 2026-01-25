@@ -1,0 +1,15 @@
+.star-rating {
+    font-size: 1.5rem;
+    color: #ffc107; /* Active Star Color (Yellow) */
+  }
+  
+  .star.empty {
+    color: #e4e5e9; /* Inactive Star Color (Gray) */
+  }
+  
+  .rating-value {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #333;
+  }
+  

@@ -1,4 +1,3 @@
-import { addDefaultImageToBrewItem } from '@/customFields/addDefaultImageHook'
 import { syncProductToBrewfatherAPI } from '@/customFields/brewFatherFieldHook'
 import type { CollectionConfig } from 'payload'
 
@@ -8,7 +7,7 @@ export const BeverageItem: CollectionConfig = {
     read: () => true,
   },
   hooks: {
-    beforeChange: [syncProductToBrewfatherAPI, addDefaultImageToBrewItem],
+    beforeChange: [syncProductToBrewfatherAPI],
   },
   fields: [
     {
@@ -32,7 +31,7 @@ export const BeverageItem: CollectionConfig = {
     {
       name: 'brewPhoto',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'beermedia',
     },
     {
       name: 'medal',
@@ -41,7 +40,7 @@ export const BeverageItem: CollectionConfig = {
     },
     {
       name: 'brewDescription',
-      type: 'text',
+      type: 'richText',
     },
     {
       name: 'brewingStatus',
@@ -56,6 +55,18 @@ export const BeverageItem: CollectionConfig = {
       ],
     },
     {
+      type: 'checkbox',
+      name: 'shouldUpdateRecipe',
+      label: 'Update Recipe from Brewfather on Save?',
+      defaultValue: false,
+    },
+    {
+      type: 'checkbox',
+      name: 'shouldUpdateBatch',
+      label: 'Update Batch from Brewfather on Save?',
+      defaultValue: false,
+    },
+    {
       label: 'Recipe JSON',
       type: 'collapsible',
       admin: { initCollapsed: true },
@@ -67,6 +78,7 @@ export const BeverageItem: CollectionConfig = {
         },
       ],
     },
+
     {
       label: 'Batch JSON',
       type: 'collapsible',

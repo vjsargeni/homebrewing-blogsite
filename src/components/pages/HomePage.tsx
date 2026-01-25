@@ -1,21 +1,24 @@
 import { Where } from 'payload'
-import React from 'react'
 import Container from 'react-bootstrap/Container'
-import { GetBrewsFromPayloadByCondition } from '@/services/api'
+import { GetBrewsFromPayloadByCondition, GetPlaceHolderImage } from '@/services/api'
 import PageSection from '../pageSection/PageSection'
 import { BREWING_STATUS } from '@/consts/string'
+import Page from '@/app/(frontend)/brews/[brew]/page'
 
 const HomePage = async function () {
   const query: Where = { brewingStatus: { not_equals: 'past' } }
 
+  //page data
   const data = await GetBrewsFromPayloadByCondition(query, 10)
 
   //fermenting / conditioning brews
   const upcomingBrews = data.filter((brew) => {
-    return (
-      brew.brewingStatus === BREWING_STATUS.CONDITIONING ||
-      brew.brewingStatus === BREWING_STATUS.UPCOMING
-    )
+    return brew.brewingStatus === BREWING_STATUS.UPCOMING
+  })
+
+  //Conditioning
+  const conditioningBrews = data.filter((brew) => {
+    return brew.brewingStatus === BREWING_STATUS.CONDITIONING
   })
 
   const currentBrews = data.filter((brew) => {
@@ -26,10 +29,8 @@ const HomePage = async function () {
 
   return (
     <Container>
-      <PageSection
-        sectionTitle="Currently Available"
-        sectionItems={currentBrews}
-      ></PageSection>
+      <PageSection sectionTitle="Currently Available" sectionItems={currentBrews}></PageSection>
+      <PageSection sectionTitle="On Deck" sectionItems={conditioningBrews}></PageSection>
       <PageSection sectionTitle="Upcoming Brews" sectionItems={upcomingBrews}></PageSection>
     </Container>
   )

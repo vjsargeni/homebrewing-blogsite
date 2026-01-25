@@ -5,11 +5,13 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import { usePathname } from 'next/navigation'
-import beerImg from 'media/beerMug.png'
+//import beerImg from 'media/beerMug.png'
 import { Col, Row } from 'react-bootstrap'
+import { Beermedia } from '@/payload-types'
 
 interface MainNavProps {
   navItems: NavItem[]
+  logoMedia: Beermedia
 }
 
 export type NavItem = {
@@ -18,7 +20,7 @@ export type NavItem = {
 }
 
 const MainNav: FC<MainNavProps> = (props) => {
-  const { navItems, ...remainingNavBarProps } = props
+  const { navItems, logoMedia, ...remainingNavBarProps } = props
 
   const currentPath = usePathname()
 
@@ -32,18 +34,13 @@ const MainNav: FC<MainNavProps> = (props) => {
         // className="justify-content-center"
         {...remainingNavBarProps}
       >
-        <Navbar.Brand href="/">
-          <Container className="justify-content-start">
-            <Row>
-              <Col>
-                <Image src={beerImg.src} height={30} width={40} alt={'Two beer mugs'} />
-              </Col>
-              WIP BincoBrewing Site
-            </Row>
-          </Container>
-        </Navbar.Brand>
-
+        <Image src={logoMedia.url ?? ''} height={60} width={60} alt={logoMedia.alt ?? ''} />
         <Nav fill variant="underline" className="justify-content-center" activeKey={currentPath}>
+          <Navbar.Brand href="/">
+            <Container className="justify-content-start">
+              <Row>Binco Brewing Company</Row>
+            </Container>
+          </Navbar.Brand>
           {navItems.map((navItem) => {
             return (
               <Nav.Link
