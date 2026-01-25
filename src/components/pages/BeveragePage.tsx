@@ -4,7 +4,6 @@ import { FC } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import StarComponent from '../brewDisplay/StarComponent'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
-import Image from 'next/image'
 import { ImgWrapper } from '../Images/ImageWrapper'
 
 interface BeveragePageProps {
@@ -20,7 +19,7 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
     return notFound()
   }
 
-  const recipe = pageData.brew.recipe
+  const recipe = pageData.brew.batchData
   //round to one decimal place
   const recipeRatingRaw = pageData.brew.batchData?.tasteRating ?? 0
   const ratingOutOfFive = Math.floor((recipeRatingRaw / 20) * 10) / 10
@@ -30,12 +29,11 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
     <Container className="text-center text-white" {...remainingContainerProps}>
       <h3>You&apos;re on the {pageData.brew.brewName} page</h3>
       <Row>
-        <Col className="border rounded border-primary">
-          {/* <Image objectFit={'contain'} fill src={image.url ?? ''} alt={image.alt ?? ''} /> */}
-          <ImgWrapper src={image.url!} alt={image.alt!} height={300} />
+        <Col className="mx-auto border rounded border-primary ">
+          <ImgWrapper className="p-2" src={image.url!} alt={image.alt!} height={300} />
           <StarComponent rating={ratingOutOfFive} showRatingValue={true} showEmpties={true} />
         </Col>
-        <Col> other</Col>
+        <Col className="mx-auto border rounded border-primary"> other</Col>
       </Row>
       <h4>
         <StarComponent rating={ratingOutOfFive} showRatingValue={true} className="text-white" />

@@ -10,12 +10,9 @@ import {
   Col,
   Row,
   CardBody,
-  CardImg,
 } from 'react-bootstrap'
 import { BREWING_STATUS } from '@/consts/string'
 import Link from 'next/link'
-import Image from 'next/image'
-import { CardImage } from 'react-bootstrap-icons'
 import { ImgWrapper } from '../Images/ImageWrapper'
 interface BrewDisplayProps {
   brew: BrewItem
