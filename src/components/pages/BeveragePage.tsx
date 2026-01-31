@@ -5,9 +5,25 @@ import { Col, Container, Row } from 'react-bootstrap'
 import StarComponent from '../brewDisplay/StarComponent'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import { ImgWrapper } from '../Images/ImageWrapper'
+import { BREWING_STATUS, BrewStatus } from '@/consts/string'
 
 interface BeveragePageProps {
   brew: string
+}
+
+const GetStatusText = (status: BrewStatus) => {
+  switch (status) {
+    case BREWING_STATUS.DRAFT:
+      return 'On Draft Now'
+    case BREWING_STATUS.BOTTLED:
+      return 'Bottled and Ready'
+    case BREWING_STATUS.CONDITIONING:
+    case BREWING_STATUS.UPCOMING:
+      return 'Coming Soon'
+    case BREWING_STATUS.PAST:
+    default:
+      return 'No Longer Available'
+  }
 }
 
 const BeveragePage: FC<BeveragePageProps> = async (props) => {
@@ -19,27 +35,62 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
     return notFound()
   }
 
-  const recipe = pageData.brew.batchData
+  const batchData = pageData.brew.batchData
   //round to one decimal place
   const recipeRatingRaw = pageData.brew.batchData?.tasteRating ?? 0
   const ratingOutOfFive = Math.floor((recipeRatingRaw / 20) * 10) / 10
   const descriptionHTML = convertLexicalToHTML({ data: pageData.brew.brewDescription })
-
   return (
-    <Container className="text-center text-white" {...remainingContainerProps}>
-      <h3>You&apos;re on the {pageData.brew.brewName} page</h3>
+    <Container className="text-center text-white p-2" {...remainingContainerProps}>
+      <h1>{pageData.brew.brewName}</h1>
       <Row>
-        <Col className="mx-auto border rounded border-primary ">
+        <Col className="mx-auto p-2 border rounded border-primary ">
           <ImgWrapper className="p-2" src={image.url!} alt={image.alt!} height={300} />
           <StarComponent rating={ratingOutOfFive} showRatingValue={true} showEmpties={true} />
         </Col>
-        <Col className="mx-auto border rounded border-primary"> other</Col>
+        <Col className="mx-auto border rounded border-primary">
+          <Container className="text-center p-1">
+            <h3>Quick Stats:</h3>
+            <Row>
+              <p>
+                <b>Style: </b>
+                {pageData.brew.brewStyle}
+              </p>
+              <p>
+                <b>Availability: </b>
+                {GetStatusText(pageData.brew.brewingStatus)}
+              </p>
+              <p>
+                <b>ABV: </b>
+                {batchData?.measuredAbv}%
+              </p>
+              <p>
+                <b>IBUs: </b>
+                {batchData?.estimatedIbu}
+              </p>
+              <p>
+                <b>BU/GU Ratio: </b>
+                {batchData?.estimatedBuGuRatio}
+              </p>
+              <p>
+                <b>Color: </b>
+                {batchData?.estimatedColor}
+              </p>
+              <p>
+                <b>BJCP Style: </b>
+                {batchData?.recipe?.style?.name}
+              </p>
+            </Row>
+          </Container>
+        </Col>
       </Row>
-      <h4>
-        <StarComponent rating={ratingOutOfFive} showRatingValue={true} className="text-white" />
-        <div dangerouslySetInnerHTML={{ __html: descriptionHTML }} />
-      </h4>
-      <p className="text-light"> {JSON.stringify(recipe)}</p>
+      <Row>
+        <h4>
+          <div dangerouslySetInnerHTML={{ __html: descriptionHTML }} />
+        </h4>
+      </Row>
+
+      {/* <p className="text-light"> {JSON.stringify(recipe)}</p> */}
     </Container>
   )
 }
