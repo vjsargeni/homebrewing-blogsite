@@ -1,4 +1,5 @@
-import { syncProductToBrewfatherAPI } from '@/customFields/brewFatherFieldHook'
+import { syncProductToBrewfatherAPI } from '@/hooks/brewFatherFieldHook'
+import { revalidateBrewItemHomePage } from '@/hooks/revalidateBrewItemHook'
 import type { CollectionConfig } from 'payload'
 
 export const BeverageItem: CollectionConfig = {
@@ -8,6 +9,7 @@ export const BeverageItem: CollectionConfig = {
   },
   hooks: {
     beforeChange: [syncProductToBrewfatherAPI],
+    afterChange: [revalidateBrewItemHomePage],
   },
   fields: [
     {
