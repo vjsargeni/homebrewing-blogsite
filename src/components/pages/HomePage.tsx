@@ -1,12 +1,13 @@
 import { Where } from 'payload'
 import Container from 'react-bootstrap/Container'
-import { GetBrewsFromPayloadByCondition, GetPlaceHolderImage } from '@/services/api'
+import { GetBrewsFromPayloadByCondition } from '@/services/api'
 import PageSection from '../pageSection/PageSection'
 import { BREWING_STATUS } from '@/consts/string'
-import Page from '@/app/(frontend)/brews/[brew]/page'
+import { revalidatePath } from 'next/cache'
 
 const HomePage = async function () {
   const query: Where = { brewingStatus: { not_equals: 'past' } }
+  revalidatePath('/')
 
   //page data
   const data = await GetBrewsFromPayloadByCondition(query, 10)
