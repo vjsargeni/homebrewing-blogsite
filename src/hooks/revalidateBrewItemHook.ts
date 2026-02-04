@@ -3,11 +3,7 @@ import type { CollectionAfterChangeHook } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { BrewItem } from '@/services/api'
 
-export const revalidateBrewItemHomePage: CollectionAfterChangeHook<BrewItem> = ({
-  doc,
-  previousDoc,
-  req: { payload, context },
-}) => {
+export const revalidateBrewItemHomePage: CollectionAfterChangeHook<BrewItem> = ({ doc }) => {
   revalidatePath('/')
   return doc
 }

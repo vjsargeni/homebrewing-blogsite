@@ -6,6 +6,7 @@ import StarComponent from '../brewDisplay/StarComponent'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import { ImgWrapper } from '../Images/ImageWrapper'
 import { BREWING_STATUS, BrewStatus } from '@/consts/string'
+import { Beermedia } from '@/payload-types'
 
 interface BeveragePageProps {
   brew: string
@@ -28,8 +29,9 @@ const GetStatusText = (status: BrewStatus) => {
 
 const BeveragePage: FC<BeveragePageProps> = async (props) => {
   const { brew, ...remainingContainerProps } = props
-  const image = await GetPlaceHolderImage()
+
   const pageData = await GetBeveragePage(brew)
+  const image = (pageData?.brew.brewPhoto as Beermedia) ?? (await GetPlaceHolderImage())
 
   if (pageData === undefined) {
     return notFound()
