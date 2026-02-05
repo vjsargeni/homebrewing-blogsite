@@ -5,26 +5,11 @@ import { Col, Container, Row } from 'react-bootstrap'
 import StarComponent from '../brewDisplay/StarComponent'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import { ImgWrapper } from '../Images/ImageWrapper'
-import { BREWING_STATUS, BrewStatus } from '@/consts/string'
 import { Beermedia } from '@/payload-types'
+import { GetStatusText } from '@/utils/status'
 
 interface BeveragePageProps {
   brew: string
-}
-
-const GetStatusText = (status: BrewStatus) => {
-  switch (status) {
-    case BREWING_STATUS.DRAFT:
-      return 'On Draft Now'
-    case BREWING_STATUS.BOTTLED:
-      return 'Bottled and Ready'
-    case BREWING_STATUS.CONDITIONING:
-    case BREWING_STATUS.UPCOMING:
-      return 'Coming Soon'
-    case BREWING_STATUS.PAST:
-    default:
-      return 'No Longer Available'
-  }
 }
 
 const BeveragePage: FC<BeveragePageProps> = async (props) => {
@@ -87,7 +72,7 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
         </Col>
       </Row>
       <Row>
-        <h4>
+        <h4 className="p-2">
           <div dangerouslySetInnerHTML={{ __html: descriptionHTML }} />
         </h4>
       </Row>

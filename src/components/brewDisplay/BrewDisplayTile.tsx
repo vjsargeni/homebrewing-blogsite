@@ -25,12 +25,15 @@ const BrewDisplayTile: FC<BrewDisplayProps> = async (props) => {
   const showBatchData = brew.batchData !== undefined
 
   return (
-    <Link href={linkToBrewPage} className="text-decoration-none d-flex h-100">
+    <Link
+      href={linkToBrewPage}
+      className="text-decoration-none py-2 justify-content-center d-flex h-100"
+    >
       <Card
         border="primary"
         bg="dark"
         text="light"
-        className="p-2 m-2 d-flex align-items-stretch"
+        className=" d-flex align-items-stretch"
         style={{ width: '18rem' }}
       >
         <Container className="mx-auto align-middle">

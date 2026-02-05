@@ -16,7 +16,7 @@ const PastBrewsPage: FC<PastBrewsPageProps> = async (props) => {
   //pagination?
 
   if (data.length === 0) {
-    return <h2>No Past Brews Found</h2>
+    return <h2 className="text-white text-center">No Past Brews Found</h2>
   } else if (!data?.length) {
     return notFound()
   }

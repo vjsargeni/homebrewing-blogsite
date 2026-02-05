@@ -20,11 +20,15 @@ const HomePage = async function () {
     return brew.brewingStatus === BREWING_STATUS.CONDITIONING
   })
 
-  const currentBrews = data.filter((brew) => {
-    return (
-      brew.brewingStatus === BREWING_STATUS.BOTTLED || brew.brewingStatus === BREWING_STATUS.DRAFT
-    )
-  })
+  const currentBrews = data
+    .filter((brew) => {
+      return (
+        brew.brewingStatus === BREWING_STATUS.BOTTLED || brew.brewingStatus === BREWING_STATUS.DRAFT
+      )
+    })
+    .sort((brew) => {
+      return brew.brewingStatus === BREWING_STATUS.DRAFT ? -1 : 1
+    })
 
   return (
     <Container>

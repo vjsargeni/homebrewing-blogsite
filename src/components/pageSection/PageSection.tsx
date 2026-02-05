@@ -18,7 +18,15 @@ const PageSection: FC<PageSectionProps> = (props) => {
         {sectionItems.length === 0 && <p className="text-light">Nothing at the moment...</p>}
         {sectionItems.map((item) => {
           return (
-            <Col xl={3} lg={4} md={6} sm={8} xs={12} key={`${item.id}_col_${sectionTitle}`}>
+            <Col
+              xl={3}
+              lg={4}
+              md={6}
+              sm={8}
+              xs={12}
+              className="justify-content-center"
+              key={`${item.id}_col_${sectionTitle}`}
+            >
               <BrewDisplayTile
                 key={`${item.id}_card_${sectionTitle}`}
                 brew={item}
