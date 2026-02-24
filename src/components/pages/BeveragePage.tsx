@@ -7,6 +7,7 @@ import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import { ImgWrapper } from '../Images/ImageWrapper'
 import { Beermedia } from '@/payload-types'
 import { GetStatusText } from '@/utils/status'
+import BeerIconSVG from '../Images/BeerIconSVG'
 
 interface BeveragePageProps {
   brew: string
@@ -75,6 +76,9 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
         <h4 className="p-2">
           <div dangerouslySetInnerHTML={{ __html: descriptionHTML }} />
         </h4>
+      </Row>
+      <Row>
+        <BeerIconSVG color="blue" />
       </Row>
 
       {/* <p className="text-light"> {JSON.stringify(recipe)}</p> */}
