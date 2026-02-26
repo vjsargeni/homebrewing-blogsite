@@ -7,7 +7,7 @@ export type BrewItem = {
   id: string
   brewName: string
   brewStyle: string
-  brewPhoto?: Beermedia | string //media obj?
+  brewPhoto?: Beermedia | string //media obj
   brewDescription: SerializedEditorState //RTE obj
   brewingStatus: BrewStatus
   shouldUpdateBatch: boolean

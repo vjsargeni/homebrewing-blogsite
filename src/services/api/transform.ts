@@ -32,8 +32,4 @@ const transformSingleBrewToBrewItem = function (
   }
 }
 
-//transform to handle batch
-
-//brewDescription-
-
 export { transformBrewsToBrewItems, transformSingleBrewToBrewItem }
