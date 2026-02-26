@@ -37,8 +37,13 @@ export const BeverageItem: CollectionConfig = {
     },
     {
       name: 'medal',
-      type: 'upload',
-      relationTo: 'media',
+      type: 'radio',
+      options: [
+        { label: 'First', value: 'first' },
+        { label: 'Second', value: 'second' },
+        { label: 'Third', value: 'third' },
+        { label: 'None', value: 'none' },
+      ],
     },
     {
       name: 'brewDescription',
@@ -80,7 +85,6 @@ export const BeverageItem: CollectionConfig = {
         },
       ],
     },
-
     {
       label: 'Batch JSON',
       type: 'collapsible',

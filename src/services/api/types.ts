@@ -1,5 +1,5 @@
 import { BrewStatus } from '@/consts/string'
-import { Beermedia } from '@/payload-types'
+import { Beermedia, Media } from '@/payload-types'
 import { Batch, BrewFatherRecipe } from '../brewFather'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
@@ -8,6 +8,7 @@ export type BrewItem = {
   brewName: string
   brewStyle: string
   brewPhoto?: Beermedia | string //media obj
+  medal?: string
   brewDescription: SerializedEditorState //RTE obj
   brewingStatus: BrewStatus
   shouldUpdateBatch: boolean

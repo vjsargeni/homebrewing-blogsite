@@ -84,3 +84,32 @@ export function MapSRMToHexColor(srm: number): string {
       return '#150000'
   }
 }
+
+export interface MedalHexCombos {
+  medalColor1: string
+  medalColor2: string
+  ribbonColor: string
+}
+export function MapMedalToHexCombos(place: string): MedalHexCombos {
+  switch (place) {
+    case 'first':
+      return {
+        medalColor1: '#FFD700',
+        medalColor2: '#FFC300',
+        ribbonColor: '#FF5733',
+      }
+    case 'second':
+      return {
+        medalColor1: '#C0C0C0',
+        medalColor2: '#BEBEBE',
+        ribbonColor: '#3357FF',
+      }
+    case 'third':
+    default:
+      return {
+        medalColor1: '#CD7F32',
+        medalColor2: '#B87333',
+        ribbonColor: '#33FF57',
+      }
+  }
+}

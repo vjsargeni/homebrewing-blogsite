@@ -14,6 +14,7 @@ import {
 import { BREWING_STATUS } from '@/consts/string'
 import Link from 'next/link'
 import { ImgWrapper } from '../Images/ImageWrapper'
+import { MedalSVG } from '../Images/MedalSVG'
 interface BrewDisplayProps {
   brew: BrewItem
 }
@@ -38,7 +39,10 @@ const BrewDisplayTile: FC<BrewDisplayProps> = async (props) => {
       >
         <Container className="mx-auto align-middle">
           <CardHeader>
-            <CardTitle className="text-center text-nowrap">{brew.brewName}</CardTitle>
+            <CardTitle className="text-center text-nowrap">
+              {brew.brewName}
+              {brew.medal && <MedalSVG height={25} width={25} medal={brew.medal} />}
+            </CardTitle>
             <Container className="border rounded border-primary p-1">
               <Row>
                 <Col>

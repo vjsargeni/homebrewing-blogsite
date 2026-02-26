@@ -131,7 +131,7 @@ export interface Brew {
   brewFatherBatchId?: string | null;
   brewStyle: string;
   brewPhoto?: (string | null) | Beermedia;
-  medal?: (string | null) | Media;
+  medal?: ('first' | 'second' | 'third' | 'none') | null;
   brewDescription?: {
     root: {
       type: string;

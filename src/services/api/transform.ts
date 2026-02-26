@@ -28,6 +28,7 @@ const transformSingleBrewToBrewItem = function (
     brewName: payloadbrew.brewName,
     brewStyle: payloadbrew.brewStyle,
     brewPhoto: payloadbrew?.brewPhoto ?? fallbackMedia,
+    medal: payloadbrew?.medal ?? undefined,
     batchData: payloadbrew.batchData as Batch | undefined,
   }
 }

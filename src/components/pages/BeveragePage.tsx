@@ -9,6 +9,7 @@ import { Beermedia } from '@/payload-types'
 import { GetStatusText } from '@/utils/status'
 import BeerIconSVG from '../Images/BeerIconSVG'
 import { MapSRMToHexColor } from '@/utils/color'
+import { MedalSVG } from '../Images/MedalSVG'
 
 interface BeveragePageProps {
   brew: string
@@ -32,10 +33,13 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
   const srmHex = MapSRMToHexColor(batchData?.estimatedColor ?? 0)
   return (
     <Container className="text-center text-white mx-2 p-2 mx-auto" {...remainingContainerProps}>
-      <h1 className="fs-4 fs-md-3">{pageData.brew.brewName}</h1>
+      <h1 className="fs-4 fs-md-3">
+        {pageData.brew.brewName}{' '}
+        {pageData.brew.medal && <MedalSVG height={30} width={30} medal={pageData.brew.medal} />}
+      </h1>
       <Row className="g-3 m-2">
         {/* Image, Stats, and rating column */}
-        <Col className="mx-auto border rounded border-primary p-3 m-3">
+        <Col md={6} xs={12} className="border rounded border-primary p-3">
           <ImgWrapper className="p-2 w-100" src={image.url!} alt={image.alt!} height={300} />
           <StarComponent rating={ratingOutOfFive} showRatingValue={true} showEmpties={true} />
           <Container className="text-center p-1">
@@ -82,7 +86,7 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
           </Container>
         </Col>
         {/* Description section */}
-        <Col md={6} xs={12} className="border rounded border-primary g-3 m-3 p-3">
+        <Col md={6} xs={12} className=" border rounded border-primary p-3">
           <h3 className="fs-5 fs-md-4 m-3 text-start">Description:</h3>
           <div
             className="text-start fs-6 m-3"
