@@ -1,5 +1,5 @@
 import { BrewStatus } from '@/consts/string'
-import { Beermedia, Media } from '@/payload-types'
+import { Beermedia } from '@/payload-types'
 import { Batch, BrewFatherRecipe } from '../brewFather'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
