@@ -14,17 +14,17 @@ const PageSection: FC<PageSectionProps> = (props) => {
   return (
     <Container fluid className="p-2" {...remainingContainerProps}>
       <h2 className="text-light">{sectionTitle}</h2>
-      <Row>
+      {/* Row with centered content and responsive spacing */}
+      <Row className="justify-content-left">
         {sectionItems.length === 0 && <p className="text-light">Nothing at the moment...</p>}
         {sectionItems.map((item) => {
           return (
             <Col
-              xl={3}
+              xxl={3}
               lg={4}
-              md={6}
-              sm={8}
+              s={6}
               xs={12}
-              className="justify-content-center"
+              className="d-flex justify-content-center mb-3"
               key={`${item.id}_col_${sectionTitle}`}
             >
               <BrewDisplayTile

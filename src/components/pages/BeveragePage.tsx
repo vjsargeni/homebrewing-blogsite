@@ -8,6 +8,7 @@ import { ImgWrapper } from '../Images/ImageWrapper'
 import { Beermedia } from '@/payload-types'
 import { GetStatusText } from '@/utils/status'
 import BeerIconSVG from '../Images/BeerIconSVG'
+import { MapSRMToHexColor } from '@/utils/color'
 
 interface BeveragePageProps {
   brew: string
@@ -28,60 +29,67 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
   const recipeRatingRaw = pageData.brew.batchData?.tasteRating ?? 0
   const ratingOutOfFive = Math.floor((recipeRatingRaw / 20) * 10) / 10
   const descriptionHTML = convertLexicalToHTML({ data: pageData.brew.brewDescription })
+  const srmHex = MapSRMToHexColor(batchData?.estimatedColor ?? 0)
   return (
-    <Container className="text-center text-white p-2" {...remainingContainerProps}>
-      <h1>{pageData.brew.brewName}</h1>
-      <Row>
-        <Col className="mx-auto p-2 border rounded border-primary ">
-          <ImgWrapper className="p-2" src={image.url!} alt={image.alt!} height={300} />
+    <Container className="text-center text-white mx-2 p-2 mx-auto" {...remainingContainerProps}>
+      <h1 className="fs-4 fs-md-3">{pageData.brew.brewName}</h1>
+      <Row className="g-3 m-2">
+        {/* Image, Stats, and rating column */}
+        <Col className="mx-auto border rounded border-primary p-3 m-3">
+          <ImgWrapper className="p-2 w-100" src={image.url!} alt={image.alt!} height={300} />
           <StarComponent rating={ratingOutOfFive} showRatingValue={true} showEmpties={true} />
-        </Col>
-        <Col className="mx-auto border rounded border-primary">
           <Container className="text-center p-1">
-            <h3>Quick Stats:</h3>
-            <Row>
-              <p>
-                <b>Style: </b>
-                {pageData.brew.brewStyle}
-              </p>
-              <p>
-                <b>Availability: </b>
-                {GetStatusText(pageData.brew.brewingStatus)}
-              </p>
-              <p>
-                <b>ABV: </b>
-                {batchData?.measuredAbv}%
-              </p>
-              <p>
-                <b>IBUs: </b>
-                {batchData?.estimatedIbu}
-              </p>
-              <p>
-                <b>BU/GU Ratio: </b>
-                {batchData?.estimatedBuGuRatio}
-              </p>
-              <p>
-                <b>Color: </b>
-                {batchData?.estimatedColor}
-              </p>
-              <p>
-                <b>BJCP Style: </b>
-                {batchData?.recipe?.style?.name}
-              </p>
+            <h3 className="fs-5 fs-md-4">Quick Stats:</h3>
+            <Row className="g-2">
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>Style: </b>
+                  {pageData.brew.brewStyle}
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>Availability: </b>
+                  {GetStatusText(pageData.brew.brewingStatus)}
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>IBUs: </b>
+                  {batchData?.estimatedIbu}
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>BU/GU Ratio: </b>
+                  {batchData?.estimatedBuGuRatio}
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>Color: </b>
+                  {batchData?.estimatedColor}
+                  <BeerIconSVG height={25} width={25} color={srmHex} />
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>BJCP Style: </b>
+                  {batchData?.recipe?.style?.name}
+                </p>
+              </Col>
             </Row>
           </Container>
         </Col>
+        {/* Description section */}
+        <Col md={6} xs={12} className="border rounded border-primary g-3 m-3 p-3">
+          <h3 className="fs-5 fs-md-4 m-3 text-start">Description:</h3>
+          <div
+            className="text-start fs-6 m-3"
+            dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+          />
+        </Col>
       </Row>
-      <Row>
-        <h4 className="p-2">
-          <div dangerouslySetInnerHTML={{ __html: descriptionHTML }} />
-        </h4>
-      </Row>
-      <Row>
-        <BeerIconSVG color="blue" />
-      </Row>
-
-      {/* <p className="text-light"> {JSON.stringify(recipe)}</p> */}
     </Container>
   )
 }
