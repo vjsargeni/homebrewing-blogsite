@@ -8,7 +8,7 @@ const HomePage = async function () {
   const query: Where = { brewingStatus: { not_equals: 'past' } }
 
   //page data
-  const data = await GetBrewsFromPayloadByCondition(query, 10)
+  const data = await GetBrewsFromPayloadByCondition(query, 100)
 
   //fermenting / conditioning brews
   const upcomingBrews = data.filter((brew) => {
