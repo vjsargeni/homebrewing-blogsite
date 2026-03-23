@@ -82,6 +82,18 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
                   {batchData?.recipe?.style?.name}
                 </p>
               </Col>
+              {batchData?.brewDate && (
+                <Col xs={12} className="text-start">
+                  <p className="fs-6 mb-2">
+                    <b>Brewed: </b>
+                    {new Date(batchData.brewDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}
+                  </p>
+                </Col>
+              )}
             </Row>
           </Container>
         </Col>
