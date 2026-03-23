@@ -3,7 +3,7 @@ import MainNav from '@/components/nav/MainNav'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { GetMainLogo } from '@/services/api'
 export const metadata = {
-  description: 'Binco Brewing Company - Beer past, present, and future.',
+  description: 'Binco Brewing Company - Craft beer brewed in Pike Creek Delaware',
   title: 'Binco Brewing Co',
 }
 
