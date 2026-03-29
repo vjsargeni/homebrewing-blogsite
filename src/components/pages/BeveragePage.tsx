@@ -10,15 +10,15 @@ import { GetStatusText } from '@/utils/status'
 import BeerIconSVG from '../Images/BeerIconSVG'
 import { MapSRMToHexColor } from '@/utils/color'
 import { MedalSVG } from '../Images/MedalSVG'
+import { BeveragePageData } from '@/services/api/types'
 
 interface BeveragePageProps {
-  brew: string
+  pageData: BeveragePageData
 }
 
 const BeveragePage: FC<BeveragePageProps> = async (props) => {
-  const { brew, ...remainingContainerProps } = props
+  const { pageData, ...remainingContainerProps } = props
 
-  const pageData = await GetBeveragePage(brew)
   const image = (pageData?.brew.brewPhoto as Beermedia) ?? (await GetPlaceHolderImage())
 
   if (pageData === undefined) {
@@ -40,7 +40,13 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
       <Row className="g-3 m-2">
         {/* Image, Stats, and rating column */}
         <Col md={6} xs={12} className="border rounded border-primary p-3">
-          <ImgWrapper className="p-2 w-100" src={image.url!} alt={image.alt!} height={300} />
+          <ImgWrapper
+            className="p-2 w-100"
+            src={image.url!}
+            alt={image.alt!}
+            height={300}
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
           <StarComponent rating={ratingOutOfFive} showRatingValue={true} showEmpties={true} />
           <Container className="text-center p-1">
             <h3 className="fs-5 fs-md-4">Quick Stats:</h3>
