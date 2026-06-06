@@ -16,6 +16,13 @@ const cspHeader = `default-src 'self';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  images: {
+    localPatterns: [
+      {
+        pathname: '/api/beermedia/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {
