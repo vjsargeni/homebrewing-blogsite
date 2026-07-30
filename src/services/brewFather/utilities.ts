@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { Batch, BrewFatherRecipe } from './types'
 
 export const brewfatherIncludeItems = [
@@ -24,13 +23,12 @@ export const GetRecipeFromBrewfather = async function (
   id: string,
 ): Promise<BrewFatherRecipe | undefined> {
   try {
-    const result = await axios({
-      method: 'get',
-      url: `https://api.brewfather.app/v2/recipes/${id}?include=${brewfatherIncludeItems.join(',')}`,
-      headers: headers,
-    })
+    const result = await fetch(
+      `https://api.brewfather.app/v2/recipes/${id}?include=${brewfatherIncludeItems.join(',')}`,
+      { headers: headers },
+    )
 
-    return result.data as BrewFatherRecipe
+    return (await result.json()) as BrewFatherRecipe
   } catch (ex) {
     console.error(ex)
     return undefined
@@ -39,13 +37,9 @@ export const GetRecipeFromBrewfather = async function (
 
 export const GetBatchFromBrewfather = async function (id: string): Promise<Batch | undefined> {
   try {
-    const result = await axios({
-      method: 'get',
-      url: `https://api.brewfather.app/v2/batches/${id}`,
-      headers: headers,
-    })
+    const result = await fetch(`https://api.brewfather.app/v2/batches/${id}`, { headers: headers })
 
-    return result.data as Batch
+    return (await result.json()) as Batch
   } catch (ex) {
     console.error(ex)
     return undefined
