@@ -59,9 +59,11 @@ const BrewDisplayTile: FC<BrewDisplayProps> = async (props) => {
 
               <Row>
                 <Col>
-                  <CardSubtitle className="py-1 mx-1">
-                    IBU: {showBatchData ? brew.batchData?.estimatedIbu : 'TBD'}
-                  </CardSubtitle>
+                  {brew.batchData?.estimatedIbu && (
+                    <CardSubtitle className="py-1 mx-1">
+                      IBU: {showBatchData ? brew.batchData?.estimatedIbu : 'TBD'}
+                    </CardSubtitle>
+                  )}
                 </Col>
                 <Col>
                   <CardSubtitle className="py-1 mx-1">

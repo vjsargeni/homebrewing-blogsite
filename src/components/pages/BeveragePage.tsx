@@ -63,6 +63,14 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
                   {GetStatusText(pageData.brew.brewingStatus)}
                 </p>
               </Col>
+              {batchData?.batchHops.length && (
+                <Col xs={12} className="text-start">
+                  <p className="fs-6 mb-2">
+                    <b>Hops: </b>
+                    {batchData?.batchHops?.map((hop) => hop.name).join(', ') || 'N/A'}
+                  </p>
+                </Col>
+              )}
               <Col xs={12} className="text-start">
                 <p className="fs-6 mb-2">
                   <b>IBUs: </b>
