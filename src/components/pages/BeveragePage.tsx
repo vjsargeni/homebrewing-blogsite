@@ -16,6 +16,14 @@ interface BeveragePageProps {
   pageData: BeveragePageData
 }
 
+const calculateCalories = (originalGravity: number, finalGravity: number): number => {
+  // Formula to calculate calories based on OG and FG
+  const alcCals =
+    (1881.22 * finalGravity * (originalGravity - finalGravity)) / (1.775 - originalGravity)
+  const carbCals = 3550 * finalGravity * (0.1808 * originalGravity + 0.8192 * finalGravity - 1.0004)
+  return Math.round(alcCals + carbCals)
+}
+
 const BeveragePage: FC<BeveragePageProps> = async (props) => {
   const { pageData, ...remainingContainerProps } = props
 
@@ -29,7 +37,9 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
   //round to one decimal place
   const recipeRatingRaw = pageData.brew.batchData?.tasteRating ?? 0
   const ratingOutOfFive = Math.floor((recipeRatingRaw / 20) * 10) / 10
+  const calculatedCalories = batchData?.recipe.nutrition.calories.total ?? 0
   const descriptionHTML = convertLexicalToHTML({ data: pageData.brew.brewDescription })
+
   const srmHex = MapSRMToHexColor(batchData?.estimatedColor ?? 0)
   return (
     <Container className="text-center text-white mx-2 p-2 mx-auto" {...remainingContainerProps}>
@@ -63,6 +73,18 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
                   {GetStatusText(pageData.brew.brewingStatus)}
                 </p>
               </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>ABV: </b>
+                  {batchData?.measuredAbv}%
+                </p>
+              </Col>
+              <Col xs={12} className="text-start">
+                <p className="fs-6 mb-2">
+                  <b>IBUs: </b>
+                  {batchData?.estimatedIbu}
+                </p>
+              </Col>
               {batchData?.batchHops.length && (
                 <Col xs={12} className="text-start">
                   <p className="fs-6 mb-2">
@@ -73,16 +95,18 @@ const BeveragePage: FC<BeveragePageProps> = async (props) => {
               )}
               <Col xs={12} className="text-start">
                 <p className="fs-6 mb-2">
-                  <b>IBUs: </b>
-                  {batchData?.estimatedIbu}
-                </p>
-              </Col>
-              <Col xs={12} className="text-start">
-                <p className="fs-6 mb-2">
                   <b>BU/GU Ratio: </b>
                   {batchData?.estimatedBuGuRatio}
                 </p>
               </Col>
+              {batchData?.measuredFg && batchData.measuredOg && (
+                <Col xs={12} className="text-start">
+                  <p className="fs-6 mb-2">
+                    <b>Approximate Calories per 12oz: </b>
+                    {calculateCalories(batchData.measuredOg, batchData.measuredFg)}
+                  </p>
+                </Col>
+              )}
               <Col xs={12} className="text-start">
                 <p className="fs-6 mb-2">
                   <b>Color: </b>
