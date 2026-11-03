@@ -2,7 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 const cspHeader = `default-src 'self';
     connect-src 'self' pbvqaaqeuqdmjtkzzlqy.storage.supabase.co cdn.jsdelivr.net;
-    script-src 'self' 'unsafe-inline' cdn.jsdelivr.net;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net;
     style-src 'self' 'unsafe-inline' cdn.jsdelivr.net;
     img-src 'self' blob: data: www.gravatar.com;
     worker-src 'self' blob:;
@@ -10,7 +10,7 @@ const cspHeader = `default-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors localhost;
+    frame-ancestors none;
     upgrade-insecure-requests;`
 
 /** @type {import('next').NextConfig} */
